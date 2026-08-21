@@ -112,33 +112,35 @@ const DashboardNav = ({ user, children }: DashboardNavProps) => {
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
               {userInitials}
             </div>
-            <p className="truncate text-sm font-semibold text-foreground leading-tight">
-              {user.name}
-            </p>
-            <p className="truncate text-xs text-muted-foreground">
-              {user.email}
-            </p>
-            <span className="mt-1 inline-block text-[10px] font-semibold uppercase tracking-wider text-primary">
-              {user.role || "CUSTOMER"}
-            </span>
+
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-semibold text-foreground leading-tight">
+                {user.name}
+              </p>
+              <p className="truncate text-xs text-muted-foreground">
+                {user.email}
+              </p>
+              <span className="mt-1 inline-block text-[10px] font-semibold uppercase tracking-wider text-primary">
+                {user.role || "CUSTOMER"}
+              </span>
+            </div>
           </div>
+          <Link
+            href={"/"}
+            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-sidebar-foreground/70 transition-colors hover:bg-accent hover:text-sidebar-foreground"
+          >
+            <Home className="h-4 w-4" />
+            Back to Site
+          </Link>
+
+          <button
+            onClick={handleSignOut}
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-destructive transition-colors hover:bg-destructive/10 text-left cursor-pointer"
+          >
+            <LogOut className="h-4 w-4" />
+            Sign Out
+          </button>
         </div>
-
-        <Link
-          href={"/"}
-          className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-sidebar-foreground/70 transition-colors hover:bg-accent hover:text-sidebar-foreground"
-        >
-          <Home className="h-4 w-4" />
-          Back to Site
-        </Link>
-
-        <button
-          onClick={handleSignOut}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-destructive transition-colors hover:bg-destructive/10 text-left cursor-pointer"
-        >
-          <LogOut className="h-4 w-4" />
-          Sign Out
-        </button>
       </aside>
     </div>
   );
