@@ -17,8 +17,8 @@ import {
   Heart,
   Zap,
 } from "lucide-react";
-import MarketingHeader from "@/components/ui/marketing/header";
-import MarketingFooter from "@/components/ui/marketing/footer";
+import MarketingHeader from "@/components/marketing/header";
+import MarketingFooter from "@/components/marketing/footer";
 
 const SERVICES_PREVIEW = [
   {
