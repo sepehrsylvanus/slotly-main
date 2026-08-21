@@ -119,7 +119,7 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({
     slots: slots.map((s) => ({
-      start: s.start.toDateString(),
+      start: s.start.toISOString(),
       end: s.end.toISOString(),
       sidplayTime: s.displayTime,
     })),

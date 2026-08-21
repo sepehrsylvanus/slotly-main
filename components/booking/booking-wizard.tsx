@@ -161,7 +161,8 @@ const BookingWizard = () => {
         return !!selectedStaff;
       case 2:
         return !!selectedSlot;
-        case3: return (
+      case 3:
+        return (
           customerName.length >= 2 &&
           /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)
         );
@@ -410,6 +411,65 @@ const BookingWizard = () => {
           )}
         </div>
       )}
+
+      {/* Step 3: Customer Details */}
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold">Your Details</h2>
+        <div className="space-y-3">
+          <div>
+            <label htmlFor="name" className="mb-1 block text-sm font-medium">
+              Full Name *
+            </label>
+
+            <Input
+              id="name"
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+              placeholder="John Smith"
+              autoComplete="name"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="mb-1 block text-sm font-medium">
+              Email *
+            </label>
+            <Input
+              id="email"
+              type="email"
+              value={customerEmail}
+              onChange={(e) => setCustomerEmail(e.target.value)}
+              placeholder="john@example.com"
+              autoComplete="email"
+            />
+          </div>
+          <div>
+            <label htmlFor="phone" className="mb-1 block text-sm font-medium">
+              Phone (optional)
+            </label>
+            <Input
+              id="phone"
+              type="tel"
+              value={customerPhone}
+              onChange={(e) => setCustomerPhone(e.target.value)}
+              placeholder="+1 (555) 123-4567"
+              autoComplete="tel"
+            />
+          </div>
+          <div>
+            <label htmlFor="notes" className="mb-1 block text-sm font-medium">
+              Notes (optional)
+            </label>
+            <textarea
+              id="notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Any special requests..."
+              className="flex min-h-20 w-full rounded-lg border border-input bg-card px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              maxLength={500}
+            />
+          </div>
+        </div>
+      </div>
 
       {/* Navigation buttons */}
       {step < 5 && (
