@@ -413,63 +413,124 @@ const BookingWizard = () => {
       )}
 
       {/* Step 3: Customer Details */}
-      <div className="space-y-4">
-        <h2 className="text-lg font-semibold">Your Details</h2>
-        <div className="space-y-3">
-          <div>
-            <label htmlFor="name" className="mb-1 block text-sm font-medium">
-              Full Name *
-            </label>
+      {step === 3 && (
+        <div className="space-y-4">
+          <h2 className="text-lg font-semibold">Your Details</h2>
+          <div className="space-y-3">
+            <div>
+              <label htmlFor="name" className="mb-1 block text-sm font-medium">
+                Full Name *
+              </label>
 
-            <Input
-              id="name"
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
-              placeholder="John Smith"
-              autoComplete="name"
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="mb-1 block text-sm font-medium">
-              Email *
-            </label>
-            <Input
-              id="email"
-              type="email"
-              value={customerEmail}
-              onChange={(e) => setCustomerEmail(e.target.value)}
-              placeholder="john@example.com"
-              autoComplete="email"
-            />
-          </div>
-          <div>
-            <label htmlFor="phone" className="mb-1 block text-sm font-medium">
-              Phone (optional)
-            </label>
-            <Input
-              id="phone"
-              type="tel"
-              value={customerPhone}
-              onChange={(e) => setCustomerPhone(e.target.value)}
-              placeholder="+1 (555) 123-4567"
-              autoComplete="tel"
-            />
-          </div>
-          <div>
-            <label htmlFor="notes" className="mb-1 block text-sm font-medium">
-              Notes (optional)
-            </label>
-            <textarea
-              id="notes"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Any special requests..."
-              className="flex min-h-20 w-full rounded-lg border border-input bg-card px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              maxLength={500}
-            />
+              <Input
+                id="name"
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
+                placeholder="John Smith"
+                autoComplete="name"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="mb-1 block text-sm font-medium">
+                Email *
+              </label>
+              <Input
+                id="email"
+                type="email"
+                value={customerEmail}
+                onChange={(e) => setCustomerEmail(e.target.value)}
+                placeholder="john@example.com"
+                autoComplete="email"
+              />
+            </div>
+            <div>
+              <label htmlFor="phone" className="mb-1 block text-sm font-medium">
+                Phone (optional)
+              </label>
+              <Input
+                id="phone"
+                type="tel"
+                value={customerPhone}
+                onChange={(e) => setCustomerPhone(e.target.value)}
+                placeholder="+1 (555) 123-4567"
+                autoComplete="tel"
+              />
+            </div>
+            <div>
+              <label htmlFor="notes" className="mb-1 block text-sm font-medium">
+                Notes (optional)
+              </label>
+              <textarea
+                id="notes"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Any special requests..."
+                className="flex min-h-20 w-full rounded-lg border border-input bg-card px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                maxLength={500}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {/* Step 4: Review */}
+      {step === 4 && (
+        <div className="space-y-4">
+          <h2 className="text-lg font-semibold">Review Your Booking</h2>
+          <Card>
+            <CardContent className="p-6">
+              <div className="grid gap-3 text-sm">
+                <div className="flex items-center justify-between border-b pb-3">
+                  <span className="text-muted-foreground">Service</span>
+                  <span className="font-medium">{selectedService?.name}</span>
+                </div>
+                <div className="flex items-center justify-between border-b pb-3">
+                  <span className="text-muted-foreground">Professional</span>
+                  <span className="font-medium">{selectedStaff?.name}</span>
+                </div>
+                <div className="flex items-center justify-between border-b pb-3">
+                  <span className="text-muted-foreground">Date</span>
+                  <span className="font-medium">
+                    {selectedDate &&
+                      format(parseISO(selectedDate), "EEEE, MMMM d, yyyy")}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between border-b pb-3">
+                  <span className="text-muted-foreground">Time</span>
+                  <span className="font-medium">
+                    {selectedSlot?.sidplayTime}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between border-b pb-3">
+                  <span className="text-muted-foreground">Duration</span>
+                  <span className="font-medium">
+                    {selectedService &&
+                      formatDuration(selectedService.durationMinutes)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between border-b pb-3">
+                  <span className="text-muted-foreground">Customer</span>
+                  <span className="font-medium">{customerName}</span>
+                </div>
+                <div className="flex items-center justify-between border-b pb-3">
+                  <span className="text-muted-foreground">Email</span>
+                  <span className="font-medium">{customerEmail}</span>
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  <span className="text-base font-semibold">Total</span>
+                  <span className="text-lg font-bold text-primary">
+                    {selectedService &&
+                      formatCurrency(
+                        selectedService.price,
+                        selectedService.currency,
+                      )}
+                  </span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       {/* Navigation buttons */}
       {step < 5 && (
