@@ -92,7 +92,7 @@ export function CreateServiceDialog({
     setLoading(true);
 
     try {
-      const res = await fetch("/api/service", {
+      const res = await fetch("/api/services", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
