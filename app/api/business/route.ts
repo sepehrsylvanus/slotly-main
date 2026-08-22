@@ -10,7 +10,7 @@ export async function GET() {
   return NextResponse.json({ business: biz });
 }
 
-export async function PATCH(request: NextResponse) {
+export async function PATCH(request: NextRequest) {
   try {
     const session = await auth.api.getSession({
       headers: request.headers,
