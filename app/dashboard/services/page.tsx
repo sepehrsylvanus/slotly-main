@@ -70,6 +70,8 @@ export default async function ServicesManagementPage() {
         .from(staffService)
         .innerJoin(staffProfile, eq(staffService.staffId, staffProfile.id))
         .where(eq(staffService.serviceId, svc.id));
+
+      return { ...svc, staff: assignments };
     }),
   );
 
@@ -101,7 +103,59 @@ export default async function ServicesManagementPage() {
       ) : (
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {serviceWithStaffCount.map((svc) => (
-            <Card key={svc.id}></Card>
+            <Card key={svc.id} className="transition-shadow hover:shadow-md">
+              <CardContent className="p-5 flex flex-col justify-between h-full">
+                <div>
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      {svc.categoryName && (
+                        <Badge variant="outline" className="mb-2 text-xs">
+                          {svc.categoryName}
+                        </Badge>
+                      )}
+
+                      <h3 className="font-semibold text-base leading-snug">
+                        {svc.name}
+                      </h3>
+                    </div>
+
+                    <Badge variant={svc.isActive ? "success" : "secondary"}>
+                      {svc.isActive ? "Active" : "Inactive"}
+                    </Badge>
+                  </div>
+
+                  {svc.description && (
+                    <p className="mt-2 text-xs text-muted-foreground line-clamp-2">
+                      {svc.description}
+                    </p>
+                  )}
+                </div>
+
+                <div className="mt-4 pt-3 border-t space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-bold text-primary">
+                      {formatCurrency(svc.price, svc.currency)}
+                    </span>
+                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Clock className="h-3.5 w-3.5" />
+                      {formatDuration(svc.durationMinutes)}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs text-muted-foreground pt-1">
+                    <span className="flex items-center gap-1">
+                      <Users className="h-3.5 w-3.5" />
+                      {svc.staff.length} staff assigned
+                    </span>
+                    {(svc.bufferBefore > 0 || svc.bufferAfter > 0) && (
+                      <span>
+                        Buffer: +{svc.bufferBefore + svc.bufferAfter}m
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       )}
